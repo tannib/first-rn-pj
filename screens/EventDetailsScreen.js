@@ -8,21 +8,39 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native'
+import { LinearGradient } from 'expo-linear-gradient'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const EventDetailsScreen = ({ route, navigation }) => {
   console.log(route)
   return (
-    <View>
-      <Text>{route.params.title}</Text>
-      <TouchableOpacity
-        onPress={() => navigation.navigate('SignUpToEvent')}
-        style={[
-          styles.signIn,
-          { borderColor: '#009387', borderWidth: 1, marginTop: 15 },
-        ]}
+    <View style={{ marginHorizontal: 20 }}>
+      <Text style={styles.text_header}>{route.params.title}</Text>
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'flex-start',
+
+          // marginHorizontal: 15,
+        }}
       >
-        <Text style={[styles.textSign, { color: '#009387' }]}>Registrati</Text>
-      </TouchableOpacity>
+        <Icon name='map-marker' size={35} style={{ color: '#000' }} />
+        <Text style={{ color: 'black', marginLeft: 5, fontSize: 20 }}>
+          {route.params.location}
+        </Text>
+      </View>
+      <Text> {route.params.start_date}</Text>
+      <Text> {route.params.description}</Text>
+      <View style={styles.button}>
+        <LinearGradient colors={['#08d4c4', '#01ab9d']} style={styles.signIn}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('SignUpToEvent')}
+          >
+            <Text style={[styles.textSign, { color: '#fff' }]}>Registrati</Text>
+          </TouchableOpacity>
+        </LinearGradient>
+      </View>
     </View>
   )
 }
@@ -49,9 +67,11 @@ const styles = StyleSheet.create({
     paddingVertical: 30,
   },
   text_header: {
-    color: '#fff',
+    color: '#000',
     fontWeight: 'bold',
     fontSize: 30,
+    textAlign: 'center',
+    marginVertical: 20,
   },
   text_footer: {
     color: '#05375a',
@@ -63,12 +83,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#f2f2f2',
     paddingBottom: 5,
-  },
-  textInput: {
-    flex: 1,
-    marginTop: Platform.OS === 'ios' ? 0 : -12,
-    paddingLeft: 10,
-    color: '#05375a',
   },
   button: {
     alignItems: 'center',

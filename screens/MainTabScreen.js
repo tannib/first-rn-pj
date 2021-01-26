@@ -8,6 +8,7 @@ import NewsScreen from './NewsScreen'
 import ProfileScreen from './ProfileScreen'
 import EventDetailsScreen from './EventDetailsScreen'
 import SignUpToEventScreen from './SignUpToEventScreen'
+import ConfirmEventScreen from './ConfirmEventScreen'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 
 const Tab = createMaterialBottomTabNavigator()
@@ -73,6 +74,7 @@ const EventsStackScreen = ({ navigation }) => (
     />
     <EventsStack.Screen name='EventDetails' component={EventDetailsScreen} />
     <EventsStack.Screen name='SignUpToEvent' component={SignUpToEventScreen} />
+    <EventsStack.Screen name='ConfirmEvent' component={ConfirmEventScreen} />
   </EventsStack.Navigator>
 )
 const NewsStackScreen = ({ navigation }) => (

@@ -139,7 +139,7 @@ const SignUpScreen = ({ navigation }) => {
       return
     }
 
-    return navigation.navigate('ConfirmScreen')
+    return navigation.navigate('ConfirmEvent')
   }
 
   return (
