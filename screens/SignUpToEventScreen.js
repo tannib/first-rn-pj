@@ -66,13 +66,13 @@ const SignUpScreen = ({ navigation }) => {
     })
   }
 
-  const dateChange = (e, selectedDate) => {
-    const currentDate = selectedDate || data.date
-    setData({
-      ...data,
-      date: currentDate,
-    })
-  }
+  // const dateChange = (e, selectedDate) => {
+  //   const currentDate = selectedDate || data.date
+  //   setData({
+  //     ...data,
+  //     date: currentDate,
+  //   })
+  // }
 
   // const checkMail = (val) => {
   //   if (val.length !== 0) {
@@ -189,14 +189,14 @@ const SignUpScreen = ({ navigation }) => {
           <Text style={[styles.text_footer, { marginTop: 25 }]}>
             Data di Nascita
           </Text>
-          <DateTimePicker
+          {/* <DateTimePicker
             style={[styles.action, { width: '80%' }]}
             value={data.date}
             mode='date'
             placeholder='Inserisci la tua data di nascita'
             format='YYYY-MM-DD'
             onChange={dateChange}
-          />
+          /> */}
           <Text style={[styles.text_footer, { marginTop: 25 }]}>Città</Text>
           <View style={styles.action}>
             <FontAwesome name='user-o' color='#05375a' size={20} />

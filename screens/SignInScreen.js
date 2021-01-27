@@ -35,15 +35,13 @@ const SignInScreen = ({ navigation }) => {
       return username == user.email && password == user.password
     })
 
-    console.log(foundUser)
-
     if (foundUser.length == 0) {
       Alert.alert('Login non valido', 'Mail o password sbagliate.', [
         { text: 'Riprova' },
       ])
       return
     }
-    // console.log('BT')
+
     return dispatch(signIn(foundUser))
   }
 

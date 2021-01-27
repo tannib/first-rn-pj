@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   StyleSheet,
   Text,
@@ -7,12 +7,23 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  LogBox,
 } from 'react-native'
 import Events from '../events'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { NavigationContainer } from '@react-navigation/native'
 
 const EventsScreen = ({ navigation }) => {
+  const [search, setSearch] = useState('')
+
+  const filterList = (list) => {
+    return list.filter((listItem) => {
+      return listItem.title.toLowerCase().includes(search.toLowerCase())
+    })
+  }
+
+  const listFiltered = filterList(Events)
+
   return (
     <View style={{ backgroundColor: '#fff' }}>
       <View
@@ -39,15 +50,24 @@ const EventsScreen = ({ navigation }) => {
           placeholder='Ricerca per eventi, località e aziende'
           placeholderTextColor='#000'
           autoCapitalize='none'
-          onChangeText={() => console.log('hello')}
-          style={{ color: '#fff', marginLeft: 10 }}
+          onChangeText={(search) => setSearch(search)}
+          style={{ color: '#000', marginLeft: 10 }}
         />
       </View>
       <FlatList
-        data={Events}
+        data={listFiltered}
         style={{ marginBottom: 80 }}
         renderItem={(data) => {
-          console.log(data.item)
+          // console.log('DATA - LIST', data.item)
+
+          let color
+
+          if (data.item.category === 'edu') {
+            color = 'orange'
+          } else if (data.item.category === 'tech') {
+            color = 'blue'
+          }
+
           return (
             <TouchableOpacity
               onPress={() => navigation.navigate('EventDetails', data.item)}
@@ -57,7 +77,6 @@ const EventsScreen = ({ navigation }) => {
                   backgroundColor: '#fff',
                   marginVertical: 5,
                   marginHorizontal: 10,
-                  padding: 10,
                   flexDirection: 'row',
                   borderRadius: 10,
                   shadowColor: '#000',
@@ -74,61 +93,64 @@ const EventsScreen = ({ navigation }) => {
                     alignItems: 'center',
                     flex: 1,
                     marginRight: 10,
+                    borderRightWidth: 30,
+                    borderColor: color,
+                    borderBottomLeftRadius: 10,
+                    borderTopLeftRadius: 10,
                   }}
                 >
-                  <Text
-                    style={{
-                      fontSize: 18,
-                      marginBottom: 5,
-                      color: '#000',
-                    }}
-                  >
-                    {data.item.title}
-                  </Text>
                   <Image
-                    source={{ uri: data.item.img }}
+                    source={data.item.img}
                     resizeMode='contain'
                     style={{
                       width: 80,
                       height: 80,
                       borderWidth: 2,
-                      borderColor: '#1f65ff',
+                      borderColor: 'lightgrey',
                     }}
                   />
                 </View>
                 <View
                   style={{
-                    flex: 2,
+                    flex: 2.5,
                     marginLeft: 10,
                     justifyContent: 'space-evenly',
+                    alignItems: 'flex-start',
+                    paddingVertical: 10,
                   }}
                 >
-                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    {/* <Icon name='domain' size={25} style={{ color: 'black' }} /> */}
-                    <Text
-                      style={{
-                        color: '#000',
-                        marginLeft: 5,
-                        fontWeight: 'bold',
-                      }}
-                    >
-                      {data.item.planner}
-                    </Text>
-                  </View>
-                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    {/* <Icon name='calendar' size={25} style={{ color: 'black' }} /> */}
-                    <Text
-                      style={{ color: '#000', marginLeft: 5, fontSize: 13 }}
-                    >
-                      {data.item.start_date}, {data.item.location}
-                    </Text>
-                  </View>
-                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    {/* <Icon name='text' size={25} style={{ color: 'white' }} /> */}
-                    <Text style={{ color: '#000', marginLeft: 5 }}>
+                  <Text
+                    style={{
+                      color: '#de6043',
+                      fontSize: 13,
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    {data.item.date} | {data.item.start_time} -{' '}
+                    {data.item.end_time}
+                  </Text>
+
+                  {/* <Icon name='domain' size={25} style={{ color: 'black' }} /> */}
+
+                  {/* <Icon name='calendar' size={25} style={{ color: 'black' }} /> */}
+
+                  <Text
+                    style={{
+                      fontSize: 25,
+                      color: '#000',
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    {data.item.title}
+                  </Text>
+                  <Text style={{ color: '#000', fontSize: 13 }}>
+                    {data.item.city}, {data.item.address}
+                  </Text>
+
+                  {/* <Icon name='text' size={25} style={{ color: 'white' }} /> */}
+                  {/* <Text style={{ color: '#000', marginLeft: 5 }}>
                       {data.item.description}
-                    </Text>
-                  </View>
+                    </Text> */}
                   {/* <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                   <Icon
                     name='map-marker'

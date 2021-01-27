@@ -17,23 +17,6 @@ const App = () => {
 
   const dispatch = useDispatch()
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     dispatch({
-  //       type: actionTypes.RETRIEVE_TOKEN,
-  //       payload: { token: 'nk' },
-  //     })
-  //   }, 2000)
-  // }, [])
-
-  // if (isLoading) {
-  //   return (
-  //     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-  //       <ActivityIndicator size='large' />
-  //     </View>
-  //   )
-  // }
-
   return (
     <NavigationContainer>
       {userToken == null ? (
